@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  luckperms-mariadb:
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_DATABASE:
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+    volumes:
+#      - luckperms-mariadb:/var/lib/mysql
+    restart: unless-stopped
