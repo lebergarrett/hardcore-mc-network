@@ -1,0 +1,103 @@
+# {{ ansible_managed }}
+---
+# modified version number from 2 to 3.5 for mc server network --imkumpy
+version: "3.5"
+services:
+{% for container in containers %}
+{% if container.active %}
+  {{ container.service_name }}:
+    image: {{ container.image }}
+    container_name: {{ container.container_name | default(container.service_name) }}
+{% if container.extra_hosts is defined %}
+    extra_hosts:
+{% for host in container.extra_hosts %}
+      - {{ host }}
+{% endfor %}
+{% endif %}
+{% if container.network_mode is defined %}
+    network_mode: {{ container.network_mode }}
+{% endif %}
+{% if container.privileged is defined %}
+    privileged: {{ container.privileged }}
+{% endif %}
+{% if container.cap_add is defined %}
+    cap_add: 
+{% for cap in container.cap_add %}
+      - {{ cap }}
+{% endfor %}
+{% endif %}
+{% if container.devices is defined %}
+    devices:
+{% for device in container.devices %}
+      - {{ device }}
+{% endfor %}
+{% endif %}
+{% if container.volumes is defined %}
+    volumes:
+{% for volume in container.volumes %}
+      - {{ volume }}
+{% endfor %}
+{% endif %}
+{% if container.labels is defined %}
+    labels:
+{% for label in container.labels %}
+      - {{ label }}
+{% endfor %}
+{% endif %}
+{% if container.ports is defined %}
+    ports:
+{% for port in container.ports %}
+      - {{ port }}
+{% endfor %}
+{% endif %}
+{% if ( container.environment is defined ) or ( container.include_global_env_vars is defined and container.include_global_env_vars) %}
+    environment:
+{% if container.include_global_env_vars | default(false) %}
+{% for global_var in global_env_vars %}
+      - {{ global_var }}
+{% endfor %}
+{% endif %}
+{% if container.environment is defined %}
+{% for env_var in container.environment %}
+      - {{ env_var }}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if container.depends_on is defined %}
+    depends_on:
+{% for dependent in container.depends_on %}
+      - {{ dependent }}
+{% endfor %}
+{% endif %}
+{% if container.hostname is defined %}
+    hostname: {{ container.hostname }}
+{% endif %}
+{% if container.mem_limit is defined %}
+    mem_limit: {{ container.mem_limit }}
+{% endif %}
+{% if container.restart is defined %}
+    restart: {{ container.restart }}
+{% endif %}
+{% if container.command is defined %}
+    command:
+{% for command in container.command %}
+      - {{ command }}
+{% endfor %}
+{% endif %}
+{% if container.security_opt is defined %}
+    security_opt:
+{% for sec_opt in container.security_opt %}
+      - {{ sec_opt }}
+{% endfor %}
+{% endif %}
+{% if container.shm_size is defined %}
+    shm_size: {{ container.shm_size }}
+{% endif %}
+{% if container.dns is defined %}
+    dns:
+{% for dns_entry in container.dns %}
+      - {{ dns_entry }}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endfor %}

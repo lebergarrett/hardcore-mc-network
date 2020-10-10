@@ -1,2 +1,4 @@
+# Run command below to install roles listed in this file.
+# ansible-galaxy role install -r requirements.yaml
 - src: ironicbadger.ansible_role_docker_compose_generator
 - src: geerlingguy.docker

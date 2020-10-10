@@ -1,4 +1,9 @@
 ---
+# Run command below to run playbook
+# ansible-playbook --ask-vault-pass playbook.yaml
 
 - hosts: localhost
-  
+  vars_files:
+    - 'vars/vault.yaml'
+  roles:
+    - role: ironicbadger.ansible_role_docker_compose_generator

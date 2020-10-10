@@ -1,13 +1,14 @@
-version: '3.5'
-
+# Ansible managed
+---
+# modified version number from 2 to 3.5 for mc server network --imkumpy
+version: "3.5"
 services:
-  luckperms-mariadb:
+  mariadb:
     image: mariadb
+    container_name: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD_FILE: ./secrets/mysql_root
-      MYSQL_DATABASE_FILE: ./secrets/mysql_db
-      MYSQL_USER_FILE: ./secrets/mysql_user
-      MYSQL_PASSWORD_FILE: ./secrets/mysql_pass
-#    volumes:
-#      - luckperms-mariadb:/var/lib/mysql
+      - MYSQL_ROOT_PASSWORD=Delt@Vict0r1
+      - MYSQL_DATABASE=luckperms
+      - MYSQL_USER=kumpdevluckperms
+      - MYSQL_PASSWORD=Delt@Vict0r1
     restart: unless-stopped
