@@ -1,7 +1,6 @@
 # Ansible managed
 ---
-# modified version number from 2 to 3.5 for mc server network --imkumpy
-version: "3.5"
+version: "2"
 services:
   mariadb:
     image: mariadb

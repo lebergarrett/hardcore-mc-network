@@ -1,4 +1,12 @@
-# Run command below to install roles listed in this file.
+# Run command below to install roles/collections listed in this file.
 # ansible-galaxy role install -r requirements.yaml
-- src: ironicbadger.ansible_role_docker_compose_generator
-- src: geerlingguy.docker
+
+roles:
+  # this role is what builds the docker-compose file based on the information in host/group_vars
+  - name: ironicbadger.ansible_role_docker_compose_generator
+  # this role verifies that docker and docker-compose is installed on the remote machine
+  - name: geerlingguy.docker
+
+collections:
+  # this collection includes the docker_compose plugin, needed to manage docker-compose
+  - name: community.general
