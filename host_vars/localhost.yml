@@ -5,14 +5,44 @@ docker_users:
 
 #ironicbadger.docker_compose_generator
 containers:
-  - service_name: mariadb
-    container_name: mariadb
+  # This container is used for the luckperms database so that the server network has one central permissions system.
+  # This prevents the admin from having to update permissions on all servers individually
+  - service_name: luckperms-mariadb
+    container_name: luckperms-mariadb
     image: mariadb
     # active: determines whether or not container is included in resulting docker-compose file
     active: true
     environment:
+      # these vars are stored in vars/vault.yaml using ansible-vault
       - "MYSQL_ROOT_PASSWORD={{ mysql_root }}"
       - "MYSQL_DATABASE={{ mysql_db }}"
       - "MYSQL_USER={{ mysql_user }}"
       - "MYSQL_PASSWORD={{ mysql_pass }}"
+    restart: unless-stopped
+  # This container is the bungeecord proxy, it handles player connections to all servers in the network
+  - service_name: bungeecord
+    container_name: bungeecord
+    ports:
+      - "{{ mc_connection_port}}:25577"  # port 25577 is what bungeecord is configured to listen on
+#    volumes:
+#      - "path/to/config.yml:/server/config.yml"
+#      - "path/to/bungeecord_plugins:/plugins"
+    restart: unless-stopped
+  # This container is the first server you login to, it acts as a hub to access the other servers
+  - service_name: mc-lobby
+    container_name: mc-lobby
+    image: itzg/minecraft-server
+    active: true
+    environment:
+      - "OVERRIDE_SERVER_PROPERTIES=true"
+      - "EULA=true"
+      - "ONLINE_MODE=false"
+      - "TYPE=PAPER"
+      - "VERSION={{ mc_version }}"
+      - "MEMORY=512M"
+      - "OPS={{ mc_ops }}"
+      - "DIFFICULTY=peaceful"
+      - "PVP=false"
+#    volumes:
+#      - "/path/to/data:/data"
     restart: unless-stopped

@@ -1,6 +1,6 @@
 ---
 # Run command below to run playbook
-# ansible-playbook --ask-vault-pass playbook.yaml
+# ansible-playbook --ask-vault-pass playbook.yml
 
 - hosts: localhost
   vars_files:
