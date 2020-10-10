@@ -8,6 +8,7 @@ containers:
   - service_name: mariadb
     container_name: mariadb
     image: mariadb
+    # active: determines whether or not container is included in resulting docker-compose file
     active: true
     environment:
       - "MYSQL_ROOT_PASSWORD={{ mysql_root }}"
