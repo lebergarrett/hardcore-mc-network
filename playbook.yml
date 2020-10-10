@@ -7,3 +7,10 @@
     - 'vars/vault.yaml'
   roles:
     - role: ironicbadger.ansible_role_docker_compose_generator
+    - role: kwoodson.yedit
+  tasks:
+  - name: Configure waterfall proxy
+    yedit:
+      src: minecraft-config/mc-waterfall-proxy/config.yml
+      key: listeners.motd
+      value: "&3Kumpdev Ansible Testbed!"
