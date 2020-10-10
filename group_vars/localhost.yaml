@@ -1,0 +1,17 @@
+---
+# geerlingguy.docker
+docker_users:
+  - kump
+
+#ironicbadger.docker_compose_generator
+containers:
+  - service_name: mariadb
+    container_name: mariadb
+    image: mariadb
+    active: true
+    environment:
+      - "MYSQL_ROOT_PASSWORD={{ mysql_root }}"
+      - "MYSQL_DATABASE={{ mysql_db }}"
+      - "MYSQL_USER={{ mysql_user }}"
+      - "MYSQL_PASSWORD={{ mysql_pass }}"
+    restart: unless-stopped

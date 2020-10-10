@@ -1,0 +1,2 @@
+- src: ironicbadger.ansible_role_docker_compose_generator
+- src: geerlingguy.docker
