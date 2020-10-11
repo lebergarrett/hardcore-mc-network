@@ -17,9 +17,11 @@
   - name: Configure waterfall proxy
     template:
       src: templates/waterfall-config.yml.j2
-      dest: mc-waterfall-proxy/config.yml
+      dest: "{{ item.service_name }}/config.yml"
       owner: "{{ docker_compose_generator_uid }}"
       group: "{{ docker_compose_generator_gid }}"
+    loop: "{{ containers }}"
+    when: item.image == 'itzg/bungeecord'
   - name: Configure luckperms for the paper/spigot servers
     template:
       src: templates/luckperms-config.yml.j2
