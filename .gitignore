@@ -1,5 +1,5 @@
 docker-compose.yml
-minecraft-config/luckperms-mariadb/mysql/*
-minecraft-config/mc-waterfall-proxy/waterfall_plugins/*
-paper/*
+luckperms-mariadb/mysql/*
+mc-waterfall-proxy/waterfall_plugins/*
+lobby/*
 plugins/*
