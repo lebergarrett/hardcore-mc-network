@@ -47,11 +47,10 @@ containers:
     image: itzg/minecraft-server
     active: true
     environment:
-      - "SERVER_NAME=lobby"
+      - "TYPE=PAPER"
       - "OVERRIDE_SERVER_PROPERTIES=true"
       - "EULA=true"
       - "ONLINE_MODE=false"
-      - "TYPE=PAPER"
       - "VERSION={{ mc_version }}"
       - "MEMORY=512M"
       - "USE_AIKAR_FLAGS=true"
