@@ -4,13 +4,14 @@ docker_users:
   - kump
 
 # variables for mc-waterfall-proxy configuration
-proxy_motd: '&3Kumpdev Ansible Testbed!'
+proxy_motd: "&3Kumpdev Ansible Testbed!"
 proxy_priority_server: "lobby"
 
 # Variables that are used in configuration below
 mc_connection_port: 25565
-mc_version: 1.16.3
-mc_ops: Kumpy
+mc_version: "1.16.3"
+mc_ops: "Kumpy"
+mc_whitelisted_players: "Kumpy,Fett32"  # players should be listed separated by commas
 
 # ironicbadger.docker_compose_generator
 containers:
@@ -36,7 +37,7 @@ containers:
     environment:
       - "TYPE=WATERFALL"
     ports:
-      - "{{ mc_connection_port}}:25577"  # port 25577 is what waterfall is configured to listen on
+      - "{{ mc_connection_port}}:25577"
     volumes:
       - "./minecraft-config/mc-waterfall-proxy/config.yml:/config/config.yml"
       - "./minecraft-config/mc-waterfall-proxy/plugins:/plugins"
@@ -46,15 +47,22 @@ containers:
     image: itzg/minecraft-server
     active: true
     environment:
+      - "SERVER_NAME=lobby"
       - "OVERRIDE_SERVER_PROPERTIES=true"
       - "EULA=true"
       - "ONLINE_MODE=false"
       - "TYPE=PAPER"
       - "VERSION={{ mc_version }}"
       - "MEMORY=512M"
+      - "USE_AIKAR_FLAGS=true"
       - "OPS={{ mc_ops }}"
       - "DIFFICULTY=peaceful"
       - "PVP=false"
-  #  volumes:
-  #    - "./paper:/data"
+      - "SPAWN_PROTECTION=0"
+      - "MAX_WORLD_SIZE=10000"
+      - "WHITELIST={{ mc_whitelisted_players }}"
+      - "PLUGINS_SYNC_UPDATE=false"
+    volumes:
+      - "./plugins:/plugins"
+      - "./paper:/data"
     restart: unless-stopped
