@@ -6,8 +6,6 @@ roles:
   - name: ironicbadger.ansible_role_docker_compose_generator
   # this role verifies that docker and docker-compose is installed on the remote machine
   - name: geerlingguy.docker
-  # this role allows for easy editing of yaml config files (used for waterfall proxy config)
-  - name: kwoodson.yedit
 
 collections:
   # this collection includes the docker_compose plugin, needed to manage docker-compose
