@@ -56,5 +56,5 @@ containers:
       - "DIFFICULTY=peaceful"
       - "PVP=false"
   #  volumes:
-  #    - "/path/to/data:/data"
+  #    - "./paper:/data"
     restart: unless-stopped
