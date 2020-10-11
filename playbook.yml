@@ -14,6 +14,11 @@
       path: "{{ item.service_name }}"
       state: directory
     loop: "{{ containers }}"
+    file:
+      path: "{{ item.service_name }}/plugins/LuckPerms"
+      state: directory
+    loop: "{{ containers }}"
+    when: item.environment[0] == 'TYPE=PAPER'
   - name: Configure waterfall proxy
     template:
       src: templates/waterfall-config.yml.j2

@@ -16,6 +16,12 @@ sudo apt install ansible
 
 Docker and docker-compose will also need to be installed. There is a role in the playbook that should accomplish this on most os_families, but if you are like me and use Pop! OS you will need to accomplish this prior using the docker documentation (or modify the ansible role as needed)
 
+The included 'requirements.yml' file can be used to install the roles and collections that are used by ansible for this playbook. Run the following command to install them:
+
+```
+ansible-galaxy install -r requirements.yml
+```
+
 ### Installing
 
 To get your environment running, you can go ahead and clone this repo locally using
