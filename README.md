@@ -1,6 +1,6 @@
 # mc-network
 
-Minecraft Server network using Ansible, Docker COntainers, and possibly more in the future
+Minecraft Server network using Ansible, Docker Containers, and possibly more in the future
 
 ## Getting Started
 
