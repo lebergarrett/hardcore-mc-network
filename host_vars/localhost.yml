@@ -10,7 +10,7 @@ proxy_priority_server: "lobby"
 # Variables that are used in configuration below
 mc_connection_port: 25565
 mc_version: 1.16.3
-mc_ops: "Kumpy"
+mc_ops: Kumpy
 
 # ironicbadger.docker_compose_generator
 containers:
