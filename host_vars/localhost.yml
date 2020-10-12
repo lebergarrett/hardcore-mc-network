@@ -50,6 +50,7 @@ containers:
     active: true
     environment:
       - "TYPE=PAPER"
+      - "SERVER_NAME=lobby"
       - "OVERRIDE_SERVER_PROPERTIES=true"
       - "EULA=true"
       - "ONLINE_MODE=false"
