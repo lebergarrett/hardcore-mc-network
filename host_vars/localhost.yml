@@ -67,6 +67,8 @@ containers:
     # List plugins to download below
       - "MODS=https://ci.lucko.me/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.3.jar"
     volumes:
+    # Optional method to install plugins on server. Add .jar files to ./plugins directory
+    # The downside to this option is that they cannot auto update
       - "./plugins:/plugins"
       - "./lobby:/data"
     restart: unless-stopped
