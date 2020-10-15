@@ -64,6 +64,8 @@ containers:
       - "MAX_WORLD_SIZE=10000"
       - "WHITELIST={{ mc_whitelisted_players }}"
       - "PLUGINS_SYNC_UPDATE=false"
+    # List plugins to download below
+      - "MODS=https://ci.lucko.me/job/LuckPerms/lastSuccessfulBuild/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.3.jar"
     volumes:
       - "./plugins:/plugins"
       - "./lobby:/data"
