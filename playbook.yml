@@ -9,11 +9,12 @@
 #    - role: geerlingguy.docker
     - role: ironicbadger.ansible_role_docker_compose_generator
   tasks:
-  - name: Ensure required directories are created
+  - name: Ensure container volume mounts points are created
     file:
       path: "{{ item.service_name }}"
       state: directory
     loop: "{{ containers }}"
+  - name: Ensure luckperms folders are created
     file:
       path: "{{ item.service_name }}/plugins/LuckPerms"
       state: directory
