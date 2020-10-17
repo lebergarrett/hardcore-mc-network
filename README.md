@@ -21,6 +21,11 @@ The included 'requirements.yml' file can be used to install the roles and collec
 ```
 ansible-galaxy install -r requirements.yml
 ```
+For some reason the collection "community.general" which is included in the requirements file does not install, so that will need to be done manually
+
+```
+ansible-galaxy collection install community.general
+```
 
 ### Installing
 
@@ -30,9 +35,10 @@ To get your environment running, you can go ahead and clone this repo locally us
 git clone https://github.com/imkumpy/mc-network.git
 ```
 
-Once cloned, you will need to create your own vars/vault.yaml that contains the info for a MariaDB which will be used by LuckPerms (a spigot permissions plugin) so all your servers have a central location to make permissions changes
+Once cloned, you will need to remove the existing vars/vault.yaml file and create your own that contains the info for a MariaDB which will be used by LuckPerms (a spigot permissions plugin) so all your servers have a central location to make permissions changes
 
 ```
+rm vars/vault.yaml
 ansible-vault create vars/vault.yaml
 ```
 
@@ -54,10 +60,8 @@ To run the playbook, simply type the following while in the working dir:
 ansible-playbook --ask-vault-pass playbook.yml
 ```
 
-This will output a docker-compose.yml file in your working dir, which you can run by typing:
+That's it, your server network should be running! This can be verified with:
 
 ```
-docker-compose up -d
+docker container ls
 ```
-
-That's it, your server network should be running!
