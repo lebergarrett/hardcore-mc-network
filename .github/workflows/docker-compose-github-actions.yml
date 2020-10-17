@@ -5,5 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ansible-playbook --ask-vault-pass playbook.yml
-      - run: ${{ secrets.VAULT_PASS }}
+      - run: echo ${{ secrets.VAULT_PASS }} >> .vault_pass.txt
+      - run: ansible-playbook --vault-password-file .vault_pass.txt playbook.yml
