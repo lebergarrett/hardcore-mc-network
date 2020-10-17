@@ -14,19 +14,6 @@ Ansible needs to be installed on the 'client' workstation, though in all of the 
 sudo apt install ansible
 ```
 
-Docker and docker-compose will also need to be installed. There is a role in the playbook that should accomplish this on most os_families, but if you are like me and use Pop! OS you will need to accomplish this prior using the docker documentation (or modify the ansible role as needed)
-
-The included 'requirements.yml' file can be used to install the roles and collections that are used by ansible for this playbook. Run the following command to install them:
-
-```
-ansible-galaxy install -r requirements.yml
-```
-For some reason the collection "community.general" which is included in the requirements file does not install, so that will need to be done manually
-
-```
-ansible-galaxy collection install community.general
-```
-
 ### Installing
 
 To get your environment running, you can go ahead and clone this repo locally using
@@ -44,12 +31,25 @@ ansible-vault create vars/vault.yaml
 
 it will prompt you for a password, go ahead and set it to whatever you like. You will need to enter this whenever you run the playbook in the future, so make sure its something you remember.
 
-Once that is set, you can modify the docker-compose config by editing host_vars/localhost.yml. The ansible formatting is very similar to docker-compose by default, and there is plenty in there by default so it should hopefully be easy to understand. The following is what will need to be changed at a minimum:
+Docker and docker-compose will need to be installed. There is a role in the playbook that should accomplish this on most os_families, but if you are like me and use Pop! OS you will need to accomplish this prior using the docker documentation (or modify the ansible role as needed)
+
+The included 'requirements.yml' file can be used to install the roles and collections that are used by ansible for this playbook. Run the following command to install them:
 
 ```
-docker_users: 'your local user here'
-mc_ops: 'your mc user here'
-mc_whitelisted_players: 'your mc user here'
+ansible-galaxy install -r requirements.yml
+```
+For some reason the collection "community.general" which is included in the requirements file does not install, so that will need to be done manually
+
+```
+ansible-galaxy collection install community.general
+```
+
+Once that is done, you can modify the docker-compose config by editing host_vars/localhost.yml. The ansible formatting is very similar to docker-compose by default, and there is plenty in there by default so it should hopefully be easy to understand. The following is what will need to be changed at a minimum:
+
+```
+docker_users: '$USER'
+mc_ops: 'Jeb_,Dinnerbone'
+mc_whitelisted_players: 'Jeb_,Dinnerbone'
 ```
 
 ## Deployment
