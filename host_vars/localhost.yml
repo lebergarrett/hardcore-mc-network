@@ -1,7 +1,7 @@
 ---
 # geerlingguy.docker
 docker_users:
-  - kump
+  - $USER
 
 # variables for mc-waterfall-proxy configuration
 proxy_motd: "&3Kumpdev Ansible Testbed!"
