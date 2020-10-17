@@ -3,11 +3,10 @@
 # ansible-playbook --ask-vault-pass playbook.yml
 
 - hosts: localhost
-  sudo: yes
   vars_files:
     - 'vars/vault.yaml'
   roles:
-    - role: geerlingguy.docker
+#    - role: geerlingguy.docker
     - role: ironicbadger.ansible_role_docker_compose_generator
   tasks:
   - name: Ensure required directories are created
