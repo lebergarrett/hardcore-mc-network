@@ -1,0 +1,9 @@
+name: docker-compose-github-actions
+on: [push]
+jobs:
+  run-playbook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ansible-playbook --ask-vault-pass playbook.yml
+      - run: ${{ secrets.VAULT_PASS }}
