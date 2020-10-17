@@ -3,10 +3,10 @@
 
 roles:
   # this role is what builds the docker-compose file based on the information in host/group_vars
-  - name: ironicbadger.ansible_role_docker_compose_generator
+  - ironicbadger.ansible_role_docker_compose_generator
   # this role verifies that docker and docker-compose is installed on the remote machine
-  - name: geerlingguy.docker
+  - geerlingguy.docker
 
 collections:
   # this collection includes the docker_compose plugin, needed to manage docker-compose
-  - name: community.general
+  - community.general

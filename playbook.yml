@@ -36,3 +36,6 @@
       group: "{{ docker_compose_generator_gid }}"
     loop: "{{ containers }}"
     when: item.environment[0] == 'TYPE=PAPER'
+  - name: Start server network using docker-compose
+    community.general.docker_compose:
+      project_src: .
