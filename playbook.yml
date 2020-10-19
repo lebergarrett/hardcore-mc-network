@@ -20,7 +20,7 @@
       docker_compose_generator_gid={{ docker_compose_generator_gid.stdout }}
 
   roles:
-    - role: geerlingguy.docker
+#    - role: geerlingguy.docker
     - role: ironicbadger.ansible_role_docker_compose_generator
   tasks:
   - name: Ensure container volume mounts points are created
