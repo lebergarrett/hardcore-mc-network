@@ -7,8 +7,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: ansible-galaxy install -r requirements.yml
       - run: echo ${{ secrets.VAULT_PASS }} >> .vault_pass.txt
-#      - run: ansible-playbook --vault-password-file .vault_pass.txt playbook.yml
-      - run: pwd
-      - run: ls -l
-      - run: mkdir this-is-a-test-dir
-      - run: ls -l
+      - run: ansible-playbook --vault-password-file .vault_pass.txt playbook.yml
