@@ -9,4 +9,4 @@ jobs:
       - run: echo ${{ secrets.VAULT_PASS }} >> .vault_pass.txt
 #      - run: ansible-playbook --vault-password-file .vault_pass.txt playbook.yml
       - run: pwd
-      - run: ll
+      - run: ls -l
