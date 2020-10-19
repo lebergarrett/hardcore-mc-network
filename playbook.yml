@@ -5,6 +5,20 @@
 - hosts: localhost
   vars_files:
     - 'vars/vault.yaml'
+
+  pre_tasks:
+  - name: Configure uid for docker_compose_generator
+    command: id -u
+    register: docker_compose_generator_uid
+  - set_fact:
+      docker_compose_generator_uid={{ docker_compose_generator_uid.stdout }}
+
+  - name: Configure gid for docker_compose_generator
+    command: id -g
+    register: docker_compose_generator_gid
+  - set_fact:
+      docker_compose_generator_gid={{ docker_compose_generator_gid.stdout }}
+
   roles:
 #    - role: geerlingguy.docker
     - role: ironicbadger.ansible_role_docker_compose_generator
@@ -21,6 +35,13 @@
       state: directory
     loop: "{{ containers }}"
     when: item.environment[0] == 'TYPE=PAPER'
+
+  - name: Ensure fabric config folder is created
+    file:
+      path: "{{ item.service_name }}/config"
+      state: directory
+    loop: "{{ containers }}"
+    when: item.environment[0] == 'TYPE=FABRIC'
 
   - name: Configure waterfall proxy
     template:
@@ -48,7 +69,7 @@
       group: "{{ docker_compose_generator_gid }}"
     loop: "{{ containers }}"
     when: item.environment[0] == 'TYPE=FABRIC'
-    
+
   - name: Start server network using docker-compose
     community.general.docker_compose:
       project_src: .

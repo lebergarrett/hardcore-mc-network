@@ -15,6 +15,7 @@ mc_whitelisted_players: "Kumpy,Fett32"  # players should be listed separated by 
 
 # ironicbadger.docker_compose_generator
 docker_compose_generator_output_path: "."
+
 containers:
 # This container is used for the luckperms database so that the server network has one central permissions system.
 # This prevents the admin from having to update permissions on all servers individually
