@@ -6,5 +6,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: ansible-galaxy install -r requirements.yml
+      - run: ansible-galaxy collection install community.general
       - run: echo ${{ secrets.VAULT_PASS }} >> .vault_pass.txt
       - run: ansible-playbook --vault-password-file .vault_pass.txt playbook.yml
