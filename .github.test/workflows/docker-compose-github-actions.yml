@@ -1,0 +1,12 @@
+name: docker-compose-github-actions
+on: [push]
+jobs:
+  run-playbook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ansible-galaxy install -r requirements.yml
+      - run: echo ${{ secrets.VAULT_PASS }} >> .vault_pass.txt
+#      - run: ansible-playbook --vault-password-file .vault_pass.txt playbook.yml
+      - run: pwd
+      - run: ls
