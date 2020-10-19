@@ -21,7 +21,6 @@
 
   roles:
     - role: geerlingguy.docker
-      become: yes
     - role: ironicbadger.ansible_role_docker_compose_generator
   tasks:
   - name: Ensure container volume mounts points are created
