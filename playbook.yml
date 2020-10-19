@@ -14,12 +14,14 @@
       path: "{{ item.service_name }}"
       state: directory
     loop: "{{ containers }}"
+
   - name: Ensure luckperms folders are created
     file:
       path: "{{ item.service_name }}/plugins/LuckPerms"
       state: directory
     loop: "{{ containers }}"
     when: item.environment[0] == 'TYPE=PAPER'
+
   - name: Configure waterfall proxy
     template:
       src: templates/waterfall-config.yml.j2
@@ -28,6 +30,7 @@
       group: "{{ docker_compose_generator_gid }}"
     loop: "{{ containers }}"
     when: item.image == 'itzg/bungeecord'
+
   - name: Configure luckperms for the paper/spigot servers
     template:
       src: templates/luckperms-config.yml.j2
@@ -36,6 +39,16 @@
       group: "{{ docker_compose_generator_gid }}"
     loop: "{{ containers }}"
     when: item.environment[0] == 'TYPE=PAPER'
+
+  - name: Configure FabricProxy for the Fabric servers
+    template:
+      src: templates/FabricProxy.toml.j2
+      dest: "{{ item.service_name }}/config/FabricProxy.toml"
+      owner: "{{ docker_compose_generator_uid }}"
+      group: "{{ docker_compose_generator_gid }}"
+    loop: "{{ containers }}"
+    when: item.environment[0] == 'TYPE=FABRIC'
+    
   - name: Start server network using docker-compose
     community.general.docker_compose:
       project_src: .

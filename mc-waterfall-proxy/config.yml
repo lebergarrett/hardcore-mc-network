@@ -7,7 +7,7 @@ forge_support: false
 groups:
   Kumpy:
   - admin
-ip_forward: false
+ip_forward: true
 listeners:
 - bind_local_address: true
   force_default_server: false
@@ -44,5 +44,7 @@ server_connect_timeout: 5000
 servers:
   lobby:
     address: lobby:25565
+  fabric:
+    address: fabric:25565
 stats: 19659f49-ed6b-47e3-8b81-63bd14ade63a
 timeout: 30000
