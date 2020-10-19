@@ -10,3 +10,5 @@ jobs:
 #      - run: ansible-playbook --vault-password-file .vault_pass.txt playbook.yml
       - run: pwd
       - run: ls -l
+      - run: mkdir this-is-a-test-dir
+      - run: ls -l
