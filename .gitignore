@@ -1,6 +1,3 @@
 docker-compose.yml
-luckperms-mariadb/mysql/*
-mc-waterfall-proxy/waterfall_plugins/*
-lobby/*
-fabric/
-plugins/*
+data/
+plugins/

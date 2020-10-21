@@ -30,7 +30,7 @@ containers:
       - "MYSQL_USER={{ mysql_user }}"
       - "MYSQL_PASSWORD={{ mysql_pass }}"
     volumes:
-      - "./luckperms-mariadb/mysql:/var/lib/mysql"
+      - "./data/luckperms-mariadb/mysql:/var/lib/mysql"
     restart: unless-stopped
 # This container is the waterfall proxy, it handles player connections to all servers in the network
   - service_name: mc-waterfall-proxy
@@ -42,8 +42,8 @@ containers:
     ports:
       - "{{ mc_connection_port}}:25577"
     volumes:
-      - "./mc-waterfall-proxy/config.yml:/config/config.yml"
-      - "./mc-waterfall-proxy/plugins:/plugins"
+      - "./data/mc-waterfall-proxy/config.yml:/config/config.yml"
+      - "./data/mc-waterfall-proxy/plugins:/plugins"
     restart: unless-stopped
 # This container is the first server you login to, it acts as a hub to access the other servers
 # Ensure that the server type is always the first environment variable for proper configuration
@@ -73,7 +73,7 @@ containers:
     # Optional method to install plugins on server. Add .jar files to ./plugins directory
     # The downside to this option is that they cannot auto update
       - "./plugins:/plugins"
-      - "./lobby:/data"
+      - "./data/lobby:/data"
     restart: unless-stopped
   - service_name: fabric
     image: itzg/minecraft-server
@@ -96,5 +96,5 @@ containers:
     # List mods to download below"
       - "MODS=https://github.com/OKTW-Network/FabricProxy/releases/download/v1.3.3/FabricProxy-1.3.3.jar"
     volumes:
-      - "./fabric:/data"
+      - "./data/fabric:/data"
     restart: unless-stopped
