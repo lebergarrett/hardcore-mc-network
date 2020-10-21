@@ -11,7 +11,7 @@ proxy_priority_server: "lobby"
 mc_connection_port: 25565
 mc_version: "1.16.3"
 mc_ops: "Kumpy"
-mc_whitelisted_players: "Kumpy,Fett32"  # players should be listed separated by commas
+mc_whitelisted_players: "Kumpy,Fett32,Baskest,B1ack_Raijin,Mojo_dodo"  # players should be listed separated by commas
 
 # ironicbadger.docker_compose_generator
 docker_compose_generator_output_path: "."
@@ -87,7 +87,7 @@ containers:
       - "EULA=true"
       - "ONLINE_MODE=false"
       - "VERSION={{ mc_version }}"
-      - "MEMORY=1G"
+      - "MEMORY=4G"
       - "USE_AIKAR_FLAGS=true"
       - "OPS={{ mc_ops }}"
       - "DIFFICULTY=hard"
