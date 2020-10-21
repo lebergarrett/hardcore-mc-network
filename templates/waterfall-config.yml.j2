@@ -47,6 +47,9 @@ servers:
 {% if container.active %}
   {{ container.service_name }}:
     address: {{ container.service_name }}:25565
+{% if container.restricted %}
+    restricted: true
+{% endif %}
 {% endif %}
 {% endif %}
 {% endfor %}

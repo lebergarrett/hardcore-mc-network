@@ -70,6 +70,7 @@
     loop: "{{ containers }}"
     when: item.environment[0] == 'TYPE=FABRIC'
 
-  - name: Start server network using docker-compose
-    community.general.docker_compose:
-      project_src: .
+# Uncomment Below if you wish for server network to be started at end of playbook
+#  - name: Start server network using docker-compose
+#    community.general.docker_compose:
+#      project_src: .

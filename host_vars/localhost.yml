@@ -51,6 +51,8 @@ containers:
   # Refer to itzg/docker-minecraft-server github for documentation on env variables and container configuration below
     image: itzg/minecraft-server
     active: true
+  # resticted refers to the waterfall config, which would hide server from '/server' command and only allow authorized users access
+    restricted: false
     environment:
       - "TYPE=PAPER"
       - "SERVER_NAME=lobby"
@@ -78,6 +80,7 @@ containers:
   - service_name: fabric
     image: itzg/minecraft-server
     active: true
+    restricted: false
     environment:
       - "TYPE=FABRIC"
       - "OVERRIDE_SERVER_PROPERTIES=true"
@@ -87,7 +90,7 @@ containers:
       - "MEMORY=1G"
       - "USE_AIKAR_FLAGS=true"
       - "OPS={{ mc_ops }}"
-      - "DIFFICULTY=normal"
+      - "DIFFICULTY=hard"
       - "PVP=true"
       - "SPAWN_PROTECTION=0"
       - "MAX_WORLD_SIZE=10000"
