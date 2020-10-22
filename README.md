@@ -44,7 +44,7 @@ For some reason the collection "community.general" which is included in the requ
 ansible-galaxy collection install community.general
 ```
 
-Once that is done, you can modify the docker-compose config by editing host_vars/localhost.yml. The ansible formatting is very similar to docker-compose by default, and there is plenty in there by default so it should hopefully be easy to understand. The following is what will need to be changed at a minimum:
+Once that is done, you can modify the docker-compose config by editing host_vars/localhost.yml. The ansible formatting is very similar to docker-compose, and there is plenty in there by default so it should hopefully be easy to understand. The following is what will need to be changed at a minimum:
 
 ```
 mc_ops: 'Jeb_,Dinnerbone'
