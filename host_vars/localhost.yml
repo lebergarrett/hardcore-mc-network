@@ -126,3 +126,27 @@ containers:
     volumes:
       - "./plugins:/plugins"
       - "./data/creative:/data"
+  - service_name: leber
+    image: itzg/minecraft-server
+    active: true
+    restricted: true
+    environment:
+      - "TYPE=PAPER"
+      - "OVERRIDE_SERVER_PROPERTIES=true"
+      - "EULA=true"
+      - "ONLINE_MODE=false"
+      - "VERSION={{ mc_version }}"
+      - "MEMORY=1G"
+      - "USE_AIKAR_FLAGS=true"
+      - "OPS={{ mc_ops }}"
+      - "DIFFICULTY=peaceful"
+      - "PVP=false"
+      - "SPAWN_PROTECTION=0"
+      - "MAX_WORLD_SIZE=5000"
+      - "WHITELIST={{ mc_whitelisted_players }}"
+      - "PLUGINS_SYNC_UPDATE=false"
+    # List mods to download below"
+      - "MODS=https://ci.lucko.me/job/LuckPerms/1173/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.8.jar"
+    volumes:
+      - "./data/leber:/data"
+    restart: unless-stopped
