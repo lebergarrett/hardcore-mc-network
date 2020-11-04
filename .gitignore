@@ -1,3 +1,4 @@
 docker-compose.yml
+prod-docker-compose.yml
 data/
 plugins/
