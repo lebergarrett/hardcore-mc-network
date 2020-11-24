@@ -106,6 +106,7 @@ containers:
       - "MAX_WORLD_SIZE=10000"
       - "ENFORCE_WHITELIST=true"
       - "WHITELIST={{ mc_whitelisted_players }}"
+      - "REMOVE_OLD_MODS=true"
       - "PLUGINS_SYNC_UPDATE=false"
     # List mods to download below"
     #- "MODS=https://github.com/OKTW-Network/FabricProxy/releases/download/v1.3.3/FabricProxy-1.3.3.jar"
@@ -165,5 +166,6 @@ containers:
     # List mods to download below"
     #  - "MODS=https://ci.lucko.me/job/LuckPerms/1173/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.8.jar"
     volumes:
+      - "./plugins:/plugins"
       - "./data/leber:/data"
     restart: unless-stopped

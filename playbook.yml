@@ -42,6 +42,8 @@
       path: "{{ docker_compose_generator_output_path }}/plugins"
       state: directory
 
+      #TODO - name: Prior to copying plugins over, purge paper/spigot plugins from server directories
+
   - name: Copy paper/spigot plugins to remote directory (from local share)
     synchronize:
       src: /media/shared/misc/spigot-plugins/
@@ -60,6 +62,12 @@
       path: "{{ docker_compose_generator_output_path }}/fabric-mods"
       state: directory
 
+  - name: Copy fabric mods to remote directory (from local share)
+    synchronize:
+      src: /media/shared/misc/fabric-mods/
+      dest: "{{ docker_compose_generator_output_path }}/fabric-mods"
+      delete: yes
+
   - name: Configure waterfall proxy
     template:
       src: templates/waterfall-config.yml.j2
@@ -73,6 +81,12 @@
     file:
       path: "{{ docker_compose_generator_output_path }}/bungee-plugins"
       state: directory
+
+  - name: Copy waterfall plugins to remote directory (from local share)
+    synchronize:
+      src: /media/shared/misc/bungee-plugins/
+      dest: "{{ docker_compose_generator_output_path }}/bungee-plugins"
+      delete: yes
 
   - name: Configure luckperms for the paper/spigot servers
     template:
