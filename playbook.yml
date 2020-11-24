@@ -22,26 +22,33 @@
   roles:
 #    - role: geerlingguy.docker
     - role: ironicbadger.ansible_role_docker_compose_generator
+  
   tasks:
-  - name: Ensure container volume mounts points are created
+  - name: Ensure container volume mount points are created
     file:
       path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}"
       state: directory
     loop: "{{ containers }}"
 
-  - name: Ensure luckperms folders are created
+  - name: Ensure luckperms directories are created
     file:
       path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/plugins/LuckPerms"
       state: directory
     loop: "{{ containers }}"
     when: item.environment[0] == 'TYPE=PAPER'
 
-  - name: Ensure paper/spigot plugins folder is created
+  - name: Ensure paper/spigot plugins directory is created
     file:
       path: "{{ docker_compose_generator_output_path }}/plugins"
       state: directory
 
-  - name: Ensure fabric config folder is created
+  - name: Copy paper/spigot plugins to remote directory (from local share)
+    synchronize:
+      src: /media/shared/misc/spigot-plugins/
+      dest: "{{ docker_compose_generator_output_path }}/plugins"
+      delete: yes
+
+  - name: Ensure fabric config directory is created
     file:
       path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/config"
       state: directory
