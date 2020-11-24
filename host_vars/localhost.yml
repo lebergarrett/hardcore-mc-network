@@ -12,7 +12,6 @@ mc_connection_port: 25565
 bedrock_connection_port: 19132
 mc_version: "1.16.4"
 mc_ops: "Kumpy,Fett32"
-mc_whitelisted_players: "Kumpy,Fett32,Baskest,B1ack_Raijin,Mojo_dodo,Cailinbrv,*Endercatgirl00"  # players should be listed separated by commas
 
 # ironicbadger.docker_compose_generator
 docker_compose_generator_output_path: "~/lab/mc-network-test"
@@ -76,7 +75,6 @@ containers:
       - "SPAWN_PROTECTION=0"
       - "MAX_WORLD_SIZE=100"
       - "ENFORCE_WHITELIST=true"
-      - "WHITELIST={{ mc_whitelisted_players }}"
       - "PLUGINS_SYNC_UPDATE=false"
     # List plugins to download below
     #- "MODS=https://ci.lucko.me/job/LuckPerms/1173/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.8.jar"
@@ -105,7 +103,6 @@ containers:
       - "SPAWN_PROTECTION=0"
       - "MAX_WORLD_SIZE=10000"
       - "ENFORCE_WHITELIST=true"
-      - "WHITELIST={{ mc_whitelisted_players }}"
       - "REMOVE_OLD_MODS=true"
       - "PLUGINS_SYNC_UPDATE=false"
     # List mods to download below"
@@ -135,7 +132,6 @@ containers:
       - "FORCE_GAMEMODE=true"
       - "MODE=creative"
       - "ENFORCE_WHITELIST=true"
-      - "WHITELIST={{ mc_whitelisted_players }}"
       - "PLUGINS_SYNC_UPDATE=false"
     # List mods to download below"
     # - "MODS=https://ci.lucko.me/job/LuckPerms/1173/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.8.jar"
@@ -161,7 +157,6 @@ containers:
       - "SPAWN_PROTECTION=0"
       - "MAX_WORLD_SIZE=5000"
       - "ENFORCE_WHITELIST=true"
-      - "WHITELIST={{ mc_whitelisted_players }}"
       - "PLUGINS_SYNC_UPDATE=false"
     # List mods to download below"
     #  - "MODS=https://ci.lucko.me/job/LuckPerms/1173/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.8.jar"
