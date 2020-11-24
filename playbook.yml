@@ -7,6 +7,7 @@
     - 'vars/vault.yaml'
 
   pre_tasks:
+
   - name: Configure uid for docker_compose_generator
     command: id -u
     register: docker_compose_generator_uid
@@ -19,22 +20,21 @@
   - set_fact:
       docker_compose_generator_gid={{ docker_compose_generator_gid.stdout }}
 
-  roles:
-#    - role: geerlingguy.docker
-    - role: ironicbadger.ansible_role_docker_compose_generator
-  
-  tasks:
   - name: Ensure container volume mount points are created
     file:
       path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}"
       state: directory
     loop: "{{ containers }}"
+    loop_control:
+      label: "{{ item.service_name }}"
 
   - name: Ensure luckperms directories are created
     file:
       path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/plugins/LuckPerms"
       state: directory
     loop: "{{ containers }}"
+    loop_control:
+      label: "{{ item.service_name }}"
     when: item.environment[0] == 'TYPE=PAPER'
 
   - name: Ensure paper/spigot plugins directory is created
@@ -42,25 +42,43 @@
       path: "{{ docker_compose_generator_output_path }}/plugins"
       state: directory
 
-      #TODO - name: Prior to copying plugins over, purge paper/spigot plugins from server directories
-
-  - name: Copy paper/spigot plugins to remote directory (from local share)
-    synchronize:
-      src: /media/shared/misc/spigot-plugins/
-      dest: "{{ docker_compose_generator_output_path }}/plugins"
-      delete: yes
+  - name: Purge previous paper/spigot plugins from server directories
+    shell: "rm {{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/plugins/*.jar"
+    loop: "{{ containers }}"
+    loop_control:
+      label: "{{ item.service_name }}"
+    when: item.environment[0] == 'TYPE=PAPER'
+    ignore_errors: yes
 
   - name: Ensure fabric config directory is created
     file:
       path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/config"
       state: directory
     loop: "{{ containers }}"
+    loop_control:
+      label: "{{ item.service_name }}"
     when: item.environment[0] == 'TYPE=FABRIC'
 
   - name: Create fabric mods directory
     file:
       path: "{{ docker_compose_generator_output_path }}/fabric-mods"
       state: directory
+
+  - name: Create waterfall plugins directory
+    file:
+      path: "{{ docker_compose_generator_output_path }}/bungee-plugins"
+      state: directory
+
+  roles:
+    - role: ironicbadger.ansible_role_docker_compose_generator
+
+# ACTUAL TASKS BEGIN HERE, TO INCLUDE COPYING CONFIG FILES AND TEMPLATES OVER
+  tasks:
+  - name: Copy paper/spigot plugins to remote directory (from local share)
+    synchronize:
+      src: /media/shared/misc/spigot-plugins/
+      dest: "{{ docker_compose_generator_output_path }}/plugins"
+      delete: yes
 
   - name: Copy fabric mods to remote directory (from local share)
     synchronize:
@@ -75,12 +93,9 @@
       owner: "{{ docker_compose_generator_uid }}"
       group: "{{ docker_compose_generator_gid }}"
     loop: "{{ containers }}"
+    loop_control:
+      label: "{{ item.service_name }}"
     when: item.image == 'itzg/bungeecord'
-
-  - name: Create waterfall plugins directory
-    file:
-      path: "{{ docker_compose_generator_output_path }}/bungee-plugins"
-      state: directory
 
   - name: Copy waterfall plugins to remote directory (from local share)
     synchronize:
@@ -95,6 +110,8 @@
       owner: "{{ docker_compose_generator_uid }}"
       group: "{{ docker_compose_generator_gid }}"
     loop: "{{ containers }}"
+    loop_control:
+      label: "{{ item.service_name }}"
     when: item.environment[0] == 'TYPE=PAPER'
 
   - name: Configure FabricProxy for the Fabric servers
@@ -104,6 +121,8 @@
       owner: "{{ docker_compose_generator_uid }}"
       group: "{{ docker_compose_generator_gid }}"
     loop: "{{ containers }}"
+    loop_control:
+      label: "{{ item.service_name }}"
     when: item.environment[0] == 'TYPE=FABRIC'
 
   - name: Copy over whitelist.json file to servers
@@ -113,6 +132,8 @@
       owner: "{{ docker_compose_generator_uid }}"
       group: "{{ docker_compose_generator_gid }}"
     loop: "{{ containers }}"
+    loop_control:
+      label: "{{ item.service_name }}"
     when: item.image == 'itzg/minecraft-server'
 
 # Uncomment Below if you wish for server network to be started at end of playbook
