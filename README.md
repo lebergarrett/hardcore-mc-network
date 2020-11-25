@@ -59,8 +59,19 @@ To run the playbook, simply type the following while in the working dir:
 ansible-playbook --ask-vault-pass playbook.yml
 ```
 
-It will prompt for you vault password. That's it, your server network should be running! This can be verified with:
+It will prompt for you vault password. Once the playbook is done running, a docker-compose file will output to the directory specified in the host_vars file. Start the network by running:
+```
+docker-compose up -d
+```
 
+It will take a minute or two to start, you can check the status of the network using:
 ```
 docker container ls
+```
+
+## Additional Remarks
+
+I've included a host_vars/dockerhost.yml file and some inventory files that are for my personal use, these are playbooks that I execute on a remote host to update the configuration. I run the following command (This won't work for other users because the inventory file is using a hostname from my ssh-config file)
+```
+ansible-playbook -i inventory/prod --ask-vault-pass playbook.yml
 ```
