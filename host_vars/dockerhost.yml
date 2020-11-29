@@ -101,7 +101,7 @@ containers:
       - "PVP=true"
       - "LEVEL=1_11 Kumpback"
       - "SPAWN_PROTECTION=0"
-      - "MAX_WORLD_SIZE=10000"
+      - "MAX_WORLD_SIZE=15000"
       - "ENFORCE_WHITELIST=true"
       - "REMOVE_OLD_MODS=true"
       - "PLUGINS_SYNC_UPDATE=false"
