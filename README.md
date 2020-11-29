@@ -59,13 +59,13 @@ To run the playbook on your local machine, simply type the following while in th
 ansible-playbook --ask-vault-pass playbook.yml
 ```
 
-To run the playbook on an inventory file listed in inventories/, simply type the following:
+OR To run the playbook on an inventory file listed in inventories/, simply type the following:
 
 ```
 ansible-playbook -i inventory/dev --ask-vault-pass playbook.yml
 ```
 
-It will prompt for you vault password. Once the playbook is done running, a docker-compose file will output to the directory specified in the respective host_vars file. Start the network by running:
+It will prompt for your vault password. Once the playbook is done running, a docker-compose file will output to the directory specified in the respective host_vars file. Start the network by running:
 ```
 docker-compose up -d
 ```
