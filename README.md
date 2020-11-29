@@ -53,13 +53,19 @@ mc_whitelisted_players: 'Jeb_,Dinnerbone'
 
 ## Deployment
 
-To run the playbook, simply type the following while in the working dir:
+To run the playbook on your local machine, simply type the following while in the working dir(assuming you have no inventory configured in /etc/ansible/hosts:
 
 ```
 ansible-playbook --ask-vault-pass playbook.yml
 ```
 
-It will prompt for you vault password. Once the playbook is done running, a docker-compose file will output to the directory specified in the host_vars file. Start the network by running:
+To run the playbook on an inventory file listed in inventories/, simply type the following:
+
+```
+ansible-playbook -i inventory/dev --ask-vault-pass playbook.yml
+```
+
+It will prompt for you vault password. Once the playbook is done running, a docker-compose file will output to the directory specified in the respective host_vars file. Start the network by running:
 ```
 docker-compose up -d
 ```
@@ -75,3 +81,5 @@ I've included a host_vars/dockerhost.yml file and some inventory files that are 
 ```
 ansible-playbook -i inventory/prod --ask-vault-pass playbook.yml
 ```
+
+The playbook includes tasks that connect to local sharedrives that I have mounted on my systems. These tasks will fail for other users who run them, so the playbook will need to be adjusted for other use cases.
