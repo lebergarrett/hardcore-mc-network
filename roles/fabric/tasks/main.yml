@@ -1,0 +1,31 @@
+---
+- name: Ensure fabric config directory is created
+  file:
+    path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/config"
+    state: directory
+  loop: "{{ containers }}"
+  loop_control:
+    label: "{{ item.service_name }}"
+  when: item.environment[0] == 'TYPE=FABRIC'
+
+- name: Create fabric mods directory
+  file:
+    path: "{{ docker_compose_generator_output_path }}/fabric-mods"
+    state: directory
+
+- name: Copy fabric mods to remote directory (from local share)
+  synchronize:
+    src: /media/shared/misc/fabric-mods/
+    dest: "{{ docker_compose_generator_output_path }}/fabric-mods"
+    delete: yes
+
+- name: Configure FabricProxy for the Fabric servers
+  template:
+    src: templates/FabricProxy.toml.j2
+    dest: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/config/FabricProxy.toml"
+    owner: "{{ docker_compose_generator_uid }}"
+    group: "{{ docker_compose_generator_gid }}"
+  loop: "{{ containers }}"
+  loop_control:
+    label: "{{ item.service_name }}"
+  when: item.environment[0] == 'TYPE=FABRIC'
