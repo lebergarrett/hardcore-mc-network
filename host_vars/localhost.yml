@@ -4,6 +4,7 @@ docker_users:
   - $USER
 
 # variables for mc-waterfall-proxy configuration
+server_name: "Kumpdev"
 proxy_motd: "&3Kumpdev Ansible Testbed!"
 proxy_priority_server: "lobby"
 

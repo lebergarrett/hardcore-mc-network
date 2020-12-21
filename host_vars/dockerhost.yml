@@ -4,6 +4,7 @@ docker_users:
   - lab
 
 # variables for mc-waterfall-proxy configuration
+server_name: "Kumpdev"
 proxy_motd: "&2Kumpdev &l&7is a server network powered by Ansible!"
 proxy_priority_server: "lobby"
 
