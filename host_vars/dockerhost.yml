@@ -50,7 +50,7 @@ containers:
       - lobby
       - fabric
       - creative
-      - leber
+      - fabric-creative
     restart: unless-stopped
 # This container is the first server you login to, it acts as a hub to access the other servers
 # Ensure that the server type is always the first environment variable for proper configuration
@@ -141,7 +141,7 @@ containers:
       - "./data/creative:/data"
   - service_name: leber
     image: itzg/minecraft-server
-    active: true
+    active: false
     restricted: false
     environment:
       - "TYPE=PAPER"
@@ -165,3 +165,31 @@ containers:
       - "./plugins:/plugins"
       - "./data/leber:/data"
     restart: unless-stopped
+  - service_name: fabric-creative
+    image: itzg/minecraft-server
+    active: true
+    restricted: false
+    environment:
+      - "TYPE=FABRIC"
+      - "OVERRIDE_SERVER_PROPERTIES=true"
+      - "EULA=true"
+      - "ONLINE_MODE=false"
+      - "VERSION={{ mc_version }}"
+      - "MEMORY=1G"
+      - "USE_AIKAR_FLAGS=true"
+      - "OPS={{ mc_ops }}"
+      - "DIFFICULTY=peaceful"
+      - "PVP=false"
+      - "LEVEL=CreativeWorld"
+      - "SPAWN_PROTECTION=0"
+      - "MAX_WORLD_SIZE=1000"
+      - "FORCE_GAMEMODE=true"
+      - "MODE=creative"
+      - "ENFORCE_WHITELIST=true"
+      - "REMOVE_OLD_MODS=true"
+      - "PLUGINS_SYNC_UPDATE=false"
+    # List mods to download below"
+    # - "MODS=https://ci.lucko.me/job/LuckPerms/1173/artifact/bukkit/build/libs/LuckPerms-Bukkit-5.2.8.jar"
+    volumes:
+      - "./fabric-mods:/mods"
+      - "./data/fabric-creative:/data"
