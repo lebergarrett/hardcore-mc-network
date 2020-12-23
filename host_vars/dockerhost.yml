@@ -181,6 +181,7 @@ containers:
       - "DIFFICULTY=peaceful"
       - "PVP=false"
       - "LEVEL=CreativeWorld"
+      - "LEVEL_TYPE=FLAT"
       - "SPAWN_PROTECTION=0"
       - "MAX_WORLD_SIZE=1000"
       - "FORCE_GAMEMODE=true"
