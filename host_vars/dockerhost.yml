@@ -95,7 +95,7 @@ containers:
       - "EULA=true"
       - "ONLINE_MODE=false"
       - "VERSION={{ mc_version }}"
-      - "MEMORY=3G"
+      - "MEMORY=4G"
       - "USE_AIKAR_FLAGS=true"
       - "OPS={{ mc_ops }}"
       - "DIFFICULTY=hard"

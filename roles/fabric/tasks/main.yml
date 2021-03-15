@@ -8,6 +8,15 @@
     label: "{{ item.service_name }}"
   when: item.environment[0] == 'TYPE=FABRIC'
 
+- name: Purge previous fabric mods from server directories
+  file:
+    state: absent
+    path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/mods/"
+  loop: "{{ containers }}"
+  loop_control:
+    label: "{{ item.service_name }}"
+  when: item.environment[0] == 'TYPE=FABRIC'
+
 - name: Create fabric mods directory
   file:
     path: "{{ docker_compose_generator_output_path }}/fabric-mods"
