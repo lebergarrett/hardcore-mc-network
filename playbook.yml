@@ -32,9 +32,9 @@
   roles:
     - role: ironicbadger.ansible_role_docker_compose_generator
     - role: fabric
-    - role: luckperms
     - role: paper
     - role: waterfall
+    - role: luckperms
 
   tasks:
     

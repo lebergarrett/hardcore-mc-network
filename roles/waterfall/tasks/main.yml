@@ -35,6 +35,14 @@
     label: "{{ item.service_name }}"
   when: item.image == 'itzg/bungeecord'
 
+- name: Purge previous Bungeecord(Waterfall) plugins from server directories
+  shell: "rm {{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/plugins/*.jar"
+  loop: "{{ containers }}"
+  loop_control:
+    label: "{{ item.service_name }}"
+  when: item.environment[0] == 'TYPE=WATERFALL'
+  ignore_errors: yes
+
 - name: Copy waterfall plugins to remote directory (from local share)
   synchronize:
     src: /media/shared/misc/bungee-plugins/

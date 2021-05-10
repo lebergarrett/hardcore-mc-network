@@ -1,5 +1,5 @@
 ---
-- name: Ensure luckperms directories are created
+- name: Ensure luckperms directories are created for paper/spigot servers
   file:
     path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/plugins/LuckPerms"
     state: directory
@@ -18,3 +18,43 @@
   loop_control:
     label: "{{ item.service_name }}"
   when: item.environment[0] == 'TYPE=PAPER'
+
+- name: Ensure luckperms directories are created for waterfall proxy
+  file:
+    path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/plugins/LuckPerms"
+    state: directory
+  loop: "{{ containers }}"
+  loop_control:
+    label: "{{ item.service_name }}"
+  when: item.environment[0] == 'TYPE=WATERFALL'
+
+- name: Configure luckperms for the waterfall proxy
+  template:
+    src: templates/luckperms-config.yml.j2
+    dest: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/plugins/LuckPerms/config.yml"
+    owner: "{{ docker_compose_generator_uid }}"
+    group: "{{ docker_compose_generator_gid }}"
+  loop: "{{ containers }}"
+  loop_control:
+    label: "{{ item.service_name }}"
+  when: item.environment[0] == 'TYPE=WATERFALL'
+
+- name: Ensure luckperms directories are created for fabric servers
+  file:
+    path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/mods/luckperms"
+    state: directory
+  loop: "{{ containers }}"
+  loop_control:
+    label: "{{ item.service_name }}"
+  when: item.environment[0] == 'TYPE=FABRIC'
+
+- name: Configure luckperms for the fabric servers
+  template:
+    src: templates/luckperms.conf.j2
+    dest: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/mods/luckperms/luckperms.conf"
+    owner: "{{ docker_compose_generator_uid }}"
+    group: "{{ docker_compose_generator_gid }}"
+  loop: "{{ containers }}"
+  loop_control:
+    label: "{{ item.service_name }}"
+  when: item.environment[0] == 'TYPE=FABRIC'

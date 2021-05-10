@@ -25,22 +25,9 @@
     - "{{ ViaVersion }}"
     - "{{ WorldEdit }}"
     - "{{ WorldGuard }}"
-
-- name: Copy specific plugins to lobby server (from local share)
-  synchronize:
-    src: "/media/shared/misc/spigot-plugins/{{ item }}"
-    dest: "{{ docker_compose_generator_output_path }}/data/lobby/plugins/"
-    delete: yes
-  loop:
     - "{{ SimplePortals }}"
-
-- name: Copy specific plugins to leber server (from local share)
-  synchronize:
-    src: "/media/shared/misc/spigot-plugins/{{ item }}"
-    dest: "{{ docker_compose_generator_output_path }}/data/leber/plugins/"
-    delete: yes
-  loop:
-    - "{{ mcMMO }}"
+    - "{{ DragonEggDrop }}"
+    - "{{ MobArena }}"
 
 - name: Configure spigot.yml on paper servers
   template:
@@ -48,6 +35,24 @@
     dest: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/spigot.yml"
     owner: "{{ docker_compose_generator_uid }}"
     group: "{{ docker_compose_generator_gid }}"
+  loop: "{{ containers }}"
+  loop_control:
+    label: "{{ item.service_name }}"
+  when: item.environment[0] == 'TYPE=PAPER'
+
+- name: Ensure container plugins directory is created
+  file:
+    path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/plugins"
+    state: directory
+  loop: "{{ containers }}"
+  loop_control:
+    label: "{{ item.service_name }}"
+  when: item.environment[0] == 'TYPE=PAPER'
+
+- name: Ensure Essentials directory is created
+  file:
+    path: "{{ docker_compose_generator_output_path }}/data/{{ item.service_name }}/plugins/Essentials"
+    state: directory
   loop: "{{ containers }}"
   loop_control:
     label: "{{ item.service_name }}"
